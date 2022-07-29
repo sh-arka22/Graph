@@ -12,3 +12,6 @@ DFS(to find all path present)
 2.for all unVis nbr's
     2.1 dfs(nbr's)
 3.unmark
+
+
+HamintonianPath And Cycle
