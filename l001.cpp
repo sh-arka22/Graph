@@ -1,6 +1,7 @@
 #include<vector>
 #include <iostream>
 using namespace std;
+int vis[10];
 void file_i_o(){
 	#ifndef ONLINE_JUDGE
 	    freopen("input.txt", "r", stdin);
@@ -58,13 +59,48 @@ void removeVtx(vector<vector<Edge> > &graph, int v){
     }
 }
 
-bool hasPath(vector<vector<Edge>> &graph, int src, int dest){
-    
+// O(2E)
+bool hasPath(vector<vector<Edge>> &graph, int src, int dest,int vis[]){
+    if(src == dest)
+        return true;
+
+    bool res = false;
+    vis[src] = 1;
+    for(Edge e:graph[src]){
+        if(vis[e.u] == 0){
+            res = res or hasPath(graph,e.u,dest, vis);
+        }
+    }
+    return res;
 }
 
 
-vector<string>allPaths(vector<vector<Edge> > &graph,int src,int dest){
+int allPaths (vector<vector<Edge> > &graph,int src,int dest, int vis[], string psf){
+    if(src == dest){
+        psf+=to_string(dest);
+        cout<<psf<<endl;
+        return 1;
+    }
+    int cnt = 0;
+    vis[src] = 1;
+    for(Edge e:graph[src]){
+        if(vis[e.u] == 0){
+            cnt = cnt + allPaths(graph,e.u,dest, vis, psf+to_string(src));
+        }
+    }
+    vis[src] = 0;
+    return cnt;
+}
 
+void preOrder(vector<vector<Edge>> &graph, int src, int dest, int vis, int wsf, string psf){
+    cout<<src<<"->"<<(to_string(psf)+to_string(src)+"@"+to_string(wsf))<<endl;
+    vis[src] = true;
+    for(Edge e: graph[src]){
+        if(!vis[e.u]){
+            preOrder(graph, e.u, vis, wsf+e.w, psf+to_string(src));
+        }
+    }
+    vis[src] = false;
 }
 //**************************************************************************
 void constructGraph(vector<vector<Edge>> &graph, int V){
@@ -88,9 +124,10 @@ int main(){
     int V = 9;//total number of vertices
     vector<vector<Edge>> graph(V,vector<Edge>());
     constructGraph(graph,V);
-    removeEdge(graph,4,6);
-    removeVtx(graph,4);
-    diaplay(graph, V);
+    // removeEdge(graph,4,6);
+    // removeVtx(graph,4);
+    // diaplay(graph, V);
+    int cnt = allPaths(graph,0,6, vis,"");
 }
 
 //******PRINTING THE GRAPH ************
@@ -126,3 +163,10 @@ int main(){
 // 6->(5/3) 
 // 7->(2/2) (8/3) 
 // 8->(2/4) (7/3) 
+
+//*** All paths from 0->6
+// 0123456
+// 012346
+// 03456
+// 0346
+// 4 -> total no of paths
