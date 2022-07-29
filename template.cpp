@@ -12,9 +12,7 @@ void file_i_o(){
 
 int main(){
     file_i_o();
-    int number;
-    cin>>number;
-    cout<<"number="<<number<<endl;
+    
 }
 
 
