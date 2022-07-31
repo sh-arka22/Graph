@@ -1,6 +1,11 @@
 // Problem Link - 
 /* By Arkajyoti Saha */
 // #include<bits/stdc++.h>
+/** 
+ * Any cycle related question this bfs should be used 
+*/
+
+
 #include<iostream>
 #include<vector>
 #include<queue>
@@ -35,7 +40,7 @@ void BFStypeOne(int src){
                 continue;
             }
             cout<<parrent<<", ";
-            visited[parrent] = 1;
+            visited[parrent] = 1;  // mark parent
             for(int child: graph[parrent]){
                 if(visited[child])
                     continue;
@@ -46,9 +51,6 @@ void BFStypeOne(int src){
         cout<<endl;
     }
 }
-
-//************************ BFS TYPE TWO ********************************************************
-
 
 int main(){
     file_i_o();

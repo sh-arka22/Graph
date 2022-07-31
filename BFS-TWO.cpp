@@ -1,6 +1,13 @@
 // Problem Link - 
 /* By Arkajyoti Saha */
 // #include<bits/stdc++.h>
+
+/** 
+ * Any cycle related question this bfs should be used 
+ * 
+ * before inserting the children mark the children
+*/
+
 #include<iostream>
 #include<vector>
 #include<queue>
@@ -17,28 +24,25 @@ const int N = 1e5+10;
 
 vector<int>graph[N];
 int visited[N];
-//**************** BFS TYPE ONE ********************************
-void BFStypeOne(int src){
-
+//************************ BFS TYPE TWO ********************************************************
+void BFStypeTwo(int src){
     int rad = 0;
 
     queue<int>que;
     que.push(src);
+    visited[src] = 1;
+
     while(que.size()){
         cout<<"radius: "<<rad<<"->";
         int sz = que.size();
         while(sz--){
             int parrent = que.front();
             que.pop();
-            if(visited[parrent]){
-                cout << "cycle prasent";
-                continue;
-            }
             cout<<parrent<<", ";
-            visited[parrent] = 1;
             for(int child: graph[parrent]){
                 if(visited[child])
                     continue;
+                visited[child] = 1;  // after just entering i marked it
                 que.push(child);
             }
         }
@@ -46,9 +50,6 @@ void BFStypeOne(int src){
         cout<<endl;
     }
 }
-
-//************************ BFS TYPE TWO ********************************************************
-
 
 int main(){
     file_i_o();
@@ -61,7 +62,7 @@ int main(){
         graph[v].push_back(u);
         graph[u].push_back(v);
     }
-    BFStypeOne(0);
+    BFStypeTwo(0);
 }
 
 
