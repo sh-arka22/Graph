@@ -3,4 +3,4 @@ Graph lectures
 
 
 
-ISBipartite Solved Using Two BFS Methods
+IS-Bipartite Solved Using Two BFS Methods
