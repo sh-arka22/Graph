@@ -1,2 +1,1 @@
-
-using namespace std;
+contains_cycle
