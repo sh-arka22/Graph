@@ -20,14 +20,14 @@ void dijktras(int src){
     distance[src] = 0;
 
     while(st.size()){
-        auto [v,wsf] = *st.begin();
+        auto [wsf,v] = *st.begin();
 
-        // if(visited[v]){
-        //     cout<<"there is sa cycle";
-        //     continue;
-        // }
+         if(visited[v]){
+             cout<<"there is sa cycle";
+             continue;
+         }
 
-        // visited[v] = true;
+         visited[v] = true;
         for(auto [child,w]: graph[v]){
             // if(visited[child]) continue;
             set.insert({wsf+w,child});
